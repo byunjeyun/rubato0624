@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.uragil.nubato.dao.IDao">
+	
+	<!-- freeboard SQL -->
+	<insert id="fbwriteDao">
+		INSERT INTO freeboard(fbnum, fbname, fbtitle, fbcontent, fbid, fbhit) VALUES (freeboard_seq.nextval, #{param1}, #{param2}, #{param3}, #{param4}, 0)
+	</insert>
+	
+	<select id="fblistDao" resultType="com.uragil.nubato.dto.FBoardDto">
+		SELECT * FROM freeboard ORDER BY fbnum DESC	
+	</select>
+	
+	<select id="fblistcountDao" resultType="int">
+		SELECT count(*) FROM freeboard	
+	</select>
+	
+	<update id="fbhitDao">
+		UPDATE freeboard SET fbhit = fbhit + 1 WHERE fbnum = #{param1}
+	</update>
+	
+	<select id="fbviewDao" resultType="com.uragil.nubato.dto.FBoardDto">
+		SELECT * FROM freeboard WHERE fbnum = #{param1}
+	</select>
+	
+	<select id="fbTitleSearchlistDao" resultType="com.uragil.nubato.dto.FBoardDto">
+		SELECT * FROM freeboard WHERE fbtitle LIKE '%'|| #{param1} ||'%' ORDER BY fbnum DESC  
+	</select>
+	
+	<select id="fbContentSearchlistDao" resultType="com.uragil.nubato.dto.FBoardDto">
+		SELECT * FROM freeboard WHERE fbtitle LIKE '%'|| #{param1} ||'%' ORDER BY fbcontent DESC  
+	</select>
+	
+	<select id="fbWriterSearchlistDao" resultType="com.uragil.nubato.dto.FBoardDto">
+		SELECT * FROM freeboard WHERE fbtitle LIKE '%'|| #{param1} ||'%' ORDER BY fbname DESC  
+	</select>
+	
+	<delete id="fbdeleteDao">
+		DELETE FROM freeboard WHERE fbnum = #{param1}
+	</delete>
+
+	<insert id="fbfileInsertDao">
+		INSERT INTO fbfiles(fno, bno, filename, fileoriname, fileurl, fileextension ) VALUES(fno_seq.nextval, #{param1}, #{param2}, #{param3}, #{param4}, #{param5})
+	</insert>
+	
+	<select id="fbfileInfoDao" resultType="com.uragil.nubato.dto.FileDto">
+		SELECT * FROM fbfiles WHERE bno = #{parama1}
+		
+	</select>
+	
+	<!-- member SQL -->
+
+
+</mapper>
